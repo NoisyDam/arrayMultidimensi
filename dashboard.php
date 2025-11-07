@@ -15,16 +15,14 @@ $jumlah = [];
 $total = [];
 $grandtotal = 0;
 
-
 $jumlah_item = rand(1, 5);
 for ($i = 0; $i < $jumlah_item; $i++) {
-    $index = rand(0, 5); 
+    $index = rand(0, 4); 
     $beli[] = $nama_barang[$index];
     $jumlah[] = rand(1, 5); 
     $total[] = $harga_barang[$index] * $jumlah[$i];
     $grandtotal += $total[$i];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -40,3 +38,13 @@ for ($i = 0; $i < $jumlah_item; $i++) {
     <a href="logout.php"><button>Logout</button></a>
 </body>
 </html>
+
+<?php
+echo "<pre>";  
+foreach ($beli as $key => $barang) {
+    echo $barang . " x " . $jumlah[$key] . " = Rp " . number_format($total[$key], 0, ',', '.') . "\n";
+    
+}
+echo "Total Belanja : Rp " . number_format($grandtotal, 0, ',', '.') . "\n";
+echo "</pre>"; 
+?>
