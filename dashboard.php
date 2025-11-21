@@ -6,25 +6,32 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-$kode_barang = ["001", "002", "003", "004", "005"];
-$nama_barang = ["Mie ayam Komplit", "Mie Ayam", "Nasi Goreng Komplit", "Pop Mie", "Jus"];
-$harga_barang = [15000, 12000, 20000, 5000, 8000];
+// Array barang (kode, nama, harga)
+$barang = [
+    ["001", "Mie ayam Komplit", 15000],
+    ["002", "Mie Ayam", 12000],
+    ["003", "Nasi Goreng Komplit", 20000],
+    ["004", "Pop Mie", 5000],
+    ["005", "Jus", 8000],
+];
 
+// Variabel transaksi
 $beli = [];
 $jumlah = [];
 $total = [];
 $grandtotal = 0;
 
+// Random item belanja
 $jumlah_item = rand(1, 5);
 for ($i = 0; $i < $jumlah_item; $i++) {
-    $index = rand(0, 4); 
-    $beli[] = $nama_barang[$index];
-    $jumlah[] = rand(1, 5); 
-    $total[] = $harga_barang[$index] * $jumlah[$i];
+    $index = rand(0, 4);
+    $beli[] = $barang[$index][1];        // nama barang
+    $jumlah[] = rand(1, 5);              // jumlah
+    $total[] = $barang[$index][2] * $jumlah[$i]; // subtotal
     $grandtotal += $total[$i];
 }
 
-$diskon = 0;
+// Hitung diskon
 if ($grandtotal < 50000) {
     $diskon = 0.05 * $grandtotal;
 } elseif ($grandtotal <= 100000) {
@@ -32,9 +39,9 @@ if ($grandtotal < 50000) {
 } else {
     $diskon = 0.15 * $grandtotal;
 }
+
 $total_akhir = $grandtotal - $diskon;
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,11 +67,6 @@ $total_akhir = $grandtotal - $diskon;
         h1 {
             text-align: center;
             color: #4CAF50;
-            margin-bottom: 20px;
-        }
-        p {
-            text-align: center;
-            font-size: 18px;
             margin-bottom: 20px;
         }
         .logout-btn {
@@ -111,15 +113,16 @@ $total_akhir = $grandtotal - $diskon;
 </head>
 <body>
     <div class="container">
-        <h1>--POLGAN MART--</h1>
-        <p>SELAMAT DATANG TUAN <?php echo htmlspecialchars($_SESSION['username']); ?>!</p>
+        <h1>-- POLGAN MART --</h1>
+        <p>SELAMAT DATANG TUAN <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>!</p>
+
         <a href="logout.php"><button class="logout-btn">Logout</button></a>
 
         <div class="shopping-list">
             <h3>Daftar Belanja:</h3>
-            <?php foreach ($beli as $key => $barang): ?>
+            <?php foreach ($beli as $key => $nama): ?>
                 <div class="item">
-                    <span><?php echo htmlspecialchars($barang); ?> x <?php echo $jumlah[$key]; ?></span>
+                    <span><?php echo htmlspecialchars($nama); ?> x <?php echo $jumlah[$key]; ?></span>
                     <span>Rp <?php echo number_format($total[$key], 0, ',', '.'); ?></span>
                 </div>
             <?php endforeach; ?>
