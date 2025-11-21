@@ -11,9 +11,11 @@ if (!isset($_SESSION['username'])) {
     $harga  = (int)($_POST['harga']   ?? 0);
     $jumlah = (int)($_POST['jumlah']  ?? 0);
 
+    // hitung total
     $lineTotal   = $harga * $jumlah;
     $grandtotal  = $lineTotal;
 
+    // hitung diskon_
     if ($grandtotal == 0) {
         $d = "0%";
         $diskon = 0;
@@ -169,7 +171,7 @@ if (!isset($_SESSION['username'])) {
                 <td style="text-align:right;"><?php echo number_format($totalbayar,0,',','.'); ?></td>
             </tr>
         </tfoot>
-    </table>
+    </table>    
        
     </div>
 </body>
