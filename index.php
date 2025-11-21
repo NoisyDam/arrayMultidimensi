@@ -10,7 +10,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if( $username == 'Shishio' && $password == 'makoto' ) {
+    if( $username == 'xia chunyu' && $password == 'jia yu xin' ) {
         $_SESSION['username'] = $username;
         header("Location: dashboard.php");
         exit;
